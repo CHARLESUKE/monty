@@ -4,45 +4,46 @@
 #include <stdio.h>
 bus_t bus = {NULL, NULL, NULL, 0};
 /**
-* main - monty code interpreter
-* @argc: number of arguments
-* @argv: monty file location
-* Return: 0 on success
+* main - this main function is the monty code
+* interpreter
+* @aryst: this variables is the number of arguments
+* @arggu: this variable is the monty file location
+* Return: always return 0 on success
 */
-int main(int argc, char *argv[])
+int main(int aryst, char *arggu[])
 {
-	char *content;
-	FILE *file;
-	size_t size = 0;
-	ssize_t read_line = 1;
-	stack_t *stack = NULL;
-	unsigned int counter = 0;
+	char *cont;
+	FILE *fle;
+	size_t sze = 0;
+	ssize_t lineread = 1;
+	stack_t *stk = NULL;
+	unsigned int count = 0;
 
-	if (argc != 2)
+	if (aryst != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file = fopen(argv[1], "r");
-	bus.file = file;
-	if (!file)
+	fle = fopen(arggu[1], "r");
+	bus.file = fle;
+	if (!fle)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", arggu[1]);
 		exit(EXIT_FAILURE);
 	}
-	while (read_line > 0)
+	while (lineread > 0)
 	{
-		content = NULL;
-		read_line = getline(&content, &size, file);
-		bus.content = content;
-		counter++;
-		if (read_line > 0)
+		cont = NULL;
+		lineread = getline(&cont, &sze, fle);
+		bus.content = cont;
+		count++;
+		if (lineread > 0)
 		{
-			execute(content, &stack, counter, file);
+			execute(cont, &stk, count, fle);
 		}
-		free(content);
+		free(cont);
 	}
-	free_stack(stack);
-	fclose(file);
+	free_stack(stk);
+	fclose(fle);
 return (0);
 }
